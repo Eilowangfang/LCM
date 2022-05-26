@@ -1,5 +1,13 @@
 # The query execution time with cardinalities provided by REAL, NeuroCard
 
+Query:
+
+```
+EXPLAIN ANALYZE SELECT COUNT(*) FROM title t, movie_companies mc, cast_info ci, movie_info mi, movie_info_idx mi_idx, movie_keyword mk WHERE t.id=mc.movie_id AND t.id=ci.movie_id AND t.id=mi.movie_id AND t.id=mi_idx.movie_id AND t.id=mk.movie_id AND mi_idx.info_type_id>107 AND ci.role_id=5 AND mk.keyword_id<131663 AND mi.info_type_id<11 AND mc.company_type_id=2 AND t.production_year>1901 AND t.production_year<1984;
+
+```
+
+
 ## Execution with PostgreSQL native card
 
 ```
