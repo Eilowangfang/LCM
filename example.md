@@ -391,15 +391,18 @@ EXPLAIN ANALYZE SELECT COUNT(*) FROM title t,cast_info ci,movie_info mi,complete
  Aggregate  (cost=653425.51..653425.52 rows=1 width=8) (actual time=1953.490..1953.497 rows=1 loops=1)
    ->  Merge Join  (cost=478680.53..646131.90 rows=2917445 width=0) (actual time=864.187..1858.501 rows=2917445 loops=1)
          Merge Cond: (t.id = mk.movie_id)
-         ->  Merge Join  (cost=478664.97..545102.09 rows=83721 width=24) (actual time=864.008..1129.288 rows=83721 loops=1)               Merge Cond: (mc.movie_id = t.id)
+         ->  Merge Join  (cost=478664.97..545102.09 rows=83721 width=24) (actual time=864.008..1129.288 rows=83721 loops=1)               
+         Merge Cond: (mc.movie_id = t.id)
                ->  Index Only Scan using movie_id_movie_companies on movie_companies mc  (cost=0.43..59697.37 rows=2609129 width=4) (actual time=0.010..165.614 rows=2608026 loops=1)                     Heap Fetches: 0
                ->  Sort  (cost=478664.54..478699.65 rows=14046 width=20) (actual time=863.672..867.275 rows=84234 loops=1)
                      Sort Key: t.id                     Sort Method: quicksort  Memory: 1482kB
                      ->  Hash Join  (cost=159733.69..477696.92 rows=14046 width=20) (actual time=650.630..861.295 rows=14046 loops=1)
-                           Hash Cond: (mi.movie_id = t.id)                           ->  Bitmap Heap Scan on movie_info mi  (cost=15023.97..327951.64 rows=1325361 width=4) (actual time=28.793..146.838 rows=1325361 loops=1)
+                           Hash Cond: (mi.movie_id = t.id)                           
+                           ->  Bitmap Heap Scan on movie_info mi  (cost=15023.97..327951.64 rows=1325361 width=4) (actual time=28.793..146.838 rows=1325361 loops=1)
                                  Recheck Cond: (info_type_id = 8)                                 Heap Blocks: exact=7852
                                  ->  Bitmap Index Scan on info_type_id_movie_info  (cost=0.00..14692.62 rows=1348292 width=0) (actual time=27.951..27.951 rows=1325361 loops=1)
-                                       Index Cond: (info_type_id = 8)                           ->  Hash  (cost=144553.67..144553.67 rows=12484 width=16) (actual time=621.769..621.774 rows=12484 loops=1)
+                                       Index Cond: (info_type_id = 8)                          
+                                       ->  Hash  (cost=144553.67..144553.67 rows=12484 width=16) (actual time=621.769..621.774 rows=12484 loops=1)
                                  Buckets: 16384  Batches: 1  Memory Usage: 714kB
                                  ->  Hash Join  (cost=106867.93..144553.67 rows=12484 width=16) (actual time=421.748..620.002 rows=12484 loops=1)
                                        Hash Cond: (ci.movie_id = t.id)
