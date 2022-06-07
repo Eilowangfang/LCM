@@ -221,11 +221,12 @@ oops=1)
 
 
 # Example 2
+
 Query:
 
 ```
 EXPLAIN ANALYZE SELECT COUNT(*) FROM title t,cast_info ci,movie_info mi,complete_cast cc,movie_info_idx mi_idx,movie_keyword mk,movie_companies mc WHERE t.id=mc.movie_id AND t.id=ci.movie_id AND t.id=mi.movie_id AND t.id=mi_idx.movie_id AND t.id=mk.movie_id AND t.id=cc.movie_id AND t.production_year>1986 AND t.production_year<1991 AND ci.role_id=9 AND mi.info_type_id=8 AND cc.status_id=3;
-
+```
 
 ## Execution with PostgreSQL native card
 
